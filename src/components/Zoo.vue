@@ -14,6 +14,13 @@
           <input v-model="newAnimal.dayOfBirth"/>
           <p>{{dayOfBirth}}</p>
 
+          <label>Select sector</label>  
+          <select v-model="newAnimal.sector">
+            <option v-for="(sector,index) in sectors" :key="index" v-bind:value="sector">
+                {{ sector.name }}
+            </option>
+            </select><br>
+
           <button type="submit">Add animal</button>
       </form><br>
 
@@ -21,7 +28,8 @@
           <thead>
               <th>Species</th>
               <th>Name</th>
-              <th>Day of birth</th>  
+              <th>Day of birth</th>
+              <th>Sector</th> 
               <th>Button move</th>  
               <th>Remove button</th>       
           </thead>
@@ -30,7 +38,8 @@
                   <td>{{animal.species}}</td>
                   <td>{{animal.name}}</td>
                   <td>{{animal.dayOfBirth == '' ? 'Unknown' : animal.dayOfBirth}}</td>
-                   <td><button @click="moveToTop(animal)">Move to top</button></td>
+                  <td>{{animal.sector.name}}</td>
+                  <td><button @click="moveToTop(animal)">Move to top</button></td>
                   <td><button @click="removeAnimal(animal)">Remove animal</button></td>                 
               </tr>
           </tbody>
@@ -39,6 +48,12 @@
 </template>
 
 <script>
+
+const sectors = [
+    {name: 'Water-animals', surface: 'Water'},
+    {name: 'Fawl', surface: 'Kages'},
+    {name: 'Predators', surface: 'Kages'}
+];
 
 export default {
     data() {
@@ -49,14 +64,16 @@ export default {
             },
 
             animals: [
-                { species: 'panda', name: 'Meda', dayOfBirth: '24.05.1988'},
-                { species: 'slon', name: 'Sloncic', dayOfBirth: ''},
-                { species: 'pingvin', name: 'Pingvincic', dayOfBirth: '08.10.1997'},
-                { species: 'soko', name: 'Belo oko', dayOfBirth: '22.08.1990'},
-                { species: 'pas', name: 'Silja', dayOfBirth: '26.04.1994'},
-                { species: 'zaba', name: 'Zapcic', dayOfBirth: ''},
-                {species: 'delfin', name: 'Delfincic', dayOfBirth: '31.12.1993'},               
-            ]
+                { species: 'panda', name: 'Meda', dayOfBirth: '24.05.1988', sector:sectors[1]},
+                { species: 'slon', name: 'Sloncic', dayOfBirth: '', sector:sectors[1]},
+                { species: 'pingvin', name: 'Pingvincic', dayOfBirth: '08.10.1997', sector:sectors[0]},
+                { species: 'soko', name: 'Belo oko', dayOfBirth: '22.08.1990', sector:sectors[2]},
+                { species: 'pas', name: 'Silja', dayOfBirth: '26.04.1994', sector:sectors[1]},
+                { species: 'zaba', name: 'Zapcic', dayOfBirth: '', sector:sectors[0]},
+                {species: 'delfin', name: 'Delfincic', dayOfBirth: '31.12.1993', sector:sectors[0]},               
+            ],
+
+            sectors:sectors, //ovde smo morali da dodamo jer nam je const sectors van export
         };
     },
 
