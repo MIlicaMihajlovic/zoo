@@ -21,7 +21,7 @@
             </option>
             </select><br>
 
-          <button type="submit">Add animal</button>
+         <br><button type="submit">Add animal</button>
       </form><br>
 
       <table border=1>
@@ -41,6 +41,19 @@
                   <td>{{animal.sector.name}}</td>
                   <td><button @click="moveToTop(animal)">Move to top</button></td>
                   <td><button @click="removeAnimal(animal)">Remove animal</button></td>                 
+              </tr>
+          </tbody>
+      </table><br>
+
+      <table border=1>
+          <thead>
+              <th>Name of sector</th>
+              <th>List of animals</th>
+          </thead>
+          <tbody>
+              <tr v-for="(sector,index) in sectors" :key="index">
+                  <td>{{sector.name}}</td>
+                  <td><button type="submit" @click="listAnimals(sector)">See a list of animals</button></td>
               </tr>
           </tbody>
       </table>
@@ -90,6 +103,17 @@ export default {
         addAnimal() {
             this.animals.push(this.newAnimal);
             this.newAnimal = {};
+        },
+
+        listAnimals(sector) {
+          let list = [];
+
+          this.animals.forEach(animal => {  //kroz niz 
+              if(animal.sector.name == sector.name ){ //proverili smo da li nam zivotinja pripada tom sektoru
+                  return list.push(animal.name); //i pusovali smo u prazan niz
+              }
+          })
+          alert(list); //ispisati listu zivotinja
         }
     }
 }
