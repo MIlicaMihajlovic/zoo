@@ -7,10 +7,11 @@
               <th>Day of birth</th>       
           </thead>
           <tbody>
-              <tr v-for="animal in animals" :key="key">
+              <tr v-for="(animal,index) in animals" :key="index">
                   <td>{{animal.species}}</td>
                   <td>{{animal.name}}</td>
                   <td>{{animal.dayOfBirth == '' ? 'Unknown' : animal.dayOfBirth}}</td>
+                  <td><button @click="removeAnimal(animal)">Remove animal</button></td>
               </tr>
           </tbody>
       </table>
@@ -31,6 +32,12 @@ export default {
                 { species: 'zaba', name: 'Zapcic', dayOfBirth: ''},
                 {species: 'delfin', name: 'Delfincic', dayOfBirth: '31.12.1993'},               
             ]
+        };
+    },
+
+    methods: {
+        removeAnimal(animal) {
+            this.animals.splice((this.animals.indexOf(animal)),1);
         }
     }
 }
