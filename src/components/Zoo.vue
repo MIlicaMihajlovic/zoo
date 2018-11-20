@@ -4,14 +4,17 @@
           <thead>
               <th>Species</th>
               <th>Name</th>
-              <th>Day of birth</th>       
+              <th>Day of birth</th>  
+              <th>Button move</th>  
+              <th>Remove button</th>       
           </thead>
           <tbody>
               <tr v-for="(animal,index) in animals" :key="index">
                   <td>{{animal.species}}</td>
                   <td>{{animal.name}}</td>
                   <td>{{animal.dayOfBirth == '' ? 'Unknown' : animal.dayOfBirth}}</td>
-                  <td><button @click="removeAnimal(animal)">Remove animal</button></td>
+                   <td><button @click="moveToTop(animal)">Move to top</button></td>
+                  <td><button @click="removeAnimal(animal)">Remove animal</button></td>                 
               </tr>
           </tbody>
       </table>
@@ -38,6 +41,11 @@ export default {
     methods: {
         removeAnimal(animal) {
             this.animals.splice((this.animals.indexOf(animal)),1);
+        },
+
+        moveToTop(animal) {
+            this.removeAnimal(animal); //iskoristili metodu odozgo
+            this.animals.unshift(animal);
         }
     }
 }
