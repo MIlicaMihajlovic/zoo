@@ -1,5 +1,22 @@
 <template>
   <div>
+
+      <form @submit.prevent="addAnimal">
+          <label>Species</label>
+          <input v-model="newAnimal.species" />
+          <p>{{species}}</p>
+
+          <label>Name</label>
+          <input v-model="newAnimal.name"/>
+          <p>{{name}}</p>
+
+          <label>Day of birth</label>
+          <input v-model="newAnimal.dayOfBirth"/>
+          <p>{{dayOfBirth}}</p>
+
+          <button type="submit">Add animal</button>
+      </form><br>
+
       <table border=1>
           <thead>
               <th>Species</th>
@@ -26,6 +43,11 @@
 export default {
     data() {
         return {
+
+            newAnimal: {
+                species: '', name: '', dayOfBirth: ''
+            },
+
             animals: [
                 { species: 'panda', name: 'Meda', dayOfBirth: '24.05.1988'},
                 { species: 'slon', name: 'Sloncic', dayOfBirth: ''},
@@ -44,8 +66,13 @@ export default {
         },
 
         moveToTop(animal) {
-            this.removeAnimal(animal); //iskoristili metodu odozgo
-            this.animals.unshift(animal);
+            this.removeAnimal(animal); //iskoristili metodu odozgo i animal smo prvo sklonili iy niza
+            this.animals.unshift(animal); //a ovde ga dodali na pocetak niza
+        },
+
+        addAnimal() {
+            this.animals.push(this.newAnimal);
+            this.newAnimal = {};
         }
     }
 }
